@@ -41,7 +41,10 @@ module.exports = function() {
 					selector: "iframe#ndtvSocialCommentForm",
 					attr: "src",
 					convert: function(value) {
-						return value.split('identifier=story-news-')[1].split('&enableComments')[0];
+						if (value) {
+							return value.split('identifier=story-news-')[1].split('&enableComments')[0];
+						}
+						return '';
 					}
 				},
 				description: ".ins_mainimg_caption",
@@ -57,13 +60,15 @@ module.exports = function() {
 				}
 			}).then(article => {
 				console.log(article);
-				Article.create(article, function(err, result) {
-			        if (!err) {
-			            console.log(result);
-			        } else {
-			            console.log(err);
-			        }
-			    });
+				if (article.auid){
+					Article.create(article, function(err, result) {
+				        if (!err) {
+				            console.log(result);
+				        } else {
+				            console.log(err);
+				        }
+				    });
+				}
 			});
 		}
 	});
