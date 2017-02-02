@@ -61,13 +61,7 @@ module.exports = function() {
 			}).then(article => {
 				console.log(article);
 				if (article.auid){
-					Article.create(article, function(err, result) {
-				        if (!err) {
-				            console.log(result);
-				        } else {
-				            console.log(err);
-				        }
-				    });
+				   Article.create(article);
 				}
 			});
 		}
